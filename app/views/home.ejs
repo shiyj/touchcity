@@ -1,0 +1,26 @@
+<h1>title</h1>
+<p>Welcome to this way</p>
+
+<form action="/create" method="post">
+  <div>
+    <div>
+      <span>Name :</span>
+      <input type="text" name="user[username]" id="createName" />
+    </div>
+    <div>
+      <span>Password :</span>
+      <input type="text" name="user[password]" id="createPassword" />
+    </div>
+	<div>
+      <span>Email :</span>
+      <input type="text" name="user[email]" id="createEmail" />
+    </div>
+    <div id='editPostSubmit'>
+      <input type="submit" value="Send" />
+    </div>
+  </div>
+</form>
+<div id =users>
+<% if(users.length) %>
+<%- partial('_user', { collection: users }) %>
+</div>

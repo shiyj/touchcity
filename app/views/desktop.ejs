@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ExtTop - Desktop Sample App</title>
+
+    <link rel="stylesheet"  href="/stylesheets/resources/css/ext-all.css" />
+    <link rel="stylesheet"  href="/stylesheets/css/desktop.css" />
+    <link res="stylesheet" href="/stylesheets/style.css" />    
+    <link rel="stylesheet" type="text/css" href="http://localhost:3000/arcgis/2.4/arcgis/js/dojo/dijit/themes/claro/claro.css">
+    <script type="text/javascript" src="http://localhost:3000/arcgis/2.4/arcgis/js/my_arcgis_api.js"></script>
+
+
+  <script type="text/javascript" src="ext-all-dev.js"></script>
+    
+  <script type="text/javascript" src="js/Module.js"></script>
+	<script type="text/javascript" src="VideoWindow.js"></script>
+	<script type="text/javascript" src="BogusModule.js"></script>
+	<script type="text/javascript" src="BogusMenuModule.js"></script>
+	<script type="text/javascript" src="js/ShortcutModel.js"></script>
+	<script type="text/javascript" src="js/Desktop.js"></script>
+	<script type="text/javascript" src="js/App.js"></script>
+	<script type="text/javascript" src="Users.js"></script>
+	<script type="text/javascript" src="Settings.js"></script>
+	<script type="text/javascript" src="TabWindow.js"></script>
+	<script type="text/javascript" src="GridWindow.js"></script>
+	<script type="text/javascript" src="AccordionWindow.js"></script>
+	<script type="text/javascript" src="SystemStatus.js"></script>
+	<script type="text/javascript" src="Notepad.js"></script>
+	<script type="text/javascript" src="js/FitAllLayout.js"></script>
+	<script type="text/javascript" src="js/StartMenu.js"></script>
+	<script type="text/javascript" src="js/TaskBar.js"></script>
+	<script type="text/javascript" src="js/Video.js"></script>
+	<script type="text/javascript" src="js/Wallpaper.js"></script>
+	<script type="text/javascript" src="WallpaperModel.js"></script>
+	<script type="text/javascript" src="Map.js"></script>
+	<script type="text/javascript" src="MapTest.js"></script>
+    <script type="text/javascript" src="App-utf.js"></script>
+
+
+    <script type="text/javascript">
+        
+    dojo.require("esri.map");
+    dojo.require("esri.layers.FeatureLayer");
+//    dojo.require("dijit.TooltipDialog");
+//    dojo.require("dojo.number");     
+        Ext.require('MyDesktop.App');
+	    	Ext.Loader.setPath({
+            'Ext.ux.desktop': 'js',
+            MyDesktop: ''
+        });
+        var myDesktopApp;
+        Ext.onReady(function () {
+			
+            myDesktopApp = new MyDesktop.App();
+        });
+    </script>
+</head>
+
+<body>
+
+    <div></div>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<h1><%= title %></h1>
+<p>Welcome to <%= title %></p>
+<input type='button' value='click me' onClick="alert('aaaa')"></input>
+
+<form action="/create" method="post">
+  <div>
+    <div>
+      <span>Name :</span>
+      <input type="text" name="username" id="createName" />
+    </div>
+    <div>
+      <span>Password :</span>
+      <input type="text" name="password" id="createPassword" />
+    </div>
+	<div>
+      <span>Email :</span>
+      <input type="text" name="email" id="createEmail" />
+    </div>
+    <div id='editPostSubmit'>
+      <input type="submit" value="Send" />
+    </div>
+  </div>
+</form>
