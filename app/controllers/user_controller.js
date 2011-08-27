@@ -1,25 +1,22 @@
 var url = require('url');
 var authCheck= function(req,res,next){
-  var params = req.urlpa = url.parse(req.url, true).query;
-  if ( url.pathname == "/logout" ) {
+  var params = req.urlpa = url.parse(req.url, true);
+  if ( params.pathname == "/logout" ) {
       req.session.destroy();
+      res.send({logout:'success'});
   }
 
   if (req.session && req.session.auth == true) {
-      next();
+      res.send({auth:true});
       return;
   }
 
-  if ( url.pathname == "/login" && 
-         url.query.name == "max" && 
-         url.query.pwd == "herewego"  ) {
+  if ( params.pathname == "/login" ){ 
       req.session.auth = true;
-      next();
+      res.send({success:true});
       return;
   }
-
-  res.writeHead(403);
-  res.end('Sorry you are unauthorized.\n\nFor a login use: /login?name=max&pwd=herewego');
+  res.send('unauthed');
   return;
 }
 
@@ -53,10 +50,10 @@ exports.getfriend = function(req,res,db,next){
 }
 
 exports.auth = function(req,res,next){
-  
+ authCheck(req,res,next); 
 }
 exports.login = function(req,res,db,next){
-  
+ authCheck(req,res,next);
 }
 exports.logout = function(req,res,db,next){
   
