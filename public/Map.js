@@ -97,18 +97,18 @@ Ext.define('MyDesktop.Map',{
   initMap: function() {
              debugger
     removeDijit(dojo.byId("map"));
-function removeDijit(elem){
-	var ids = ["map"];
-	dijit.registry.forEach(function(w){ 
-	   if(dojo.indexOf(ids,id)){
+    function removeDijit(elem){
+	    var ids = ["map"];
+	    dijit.registry.forEach(function(w){ 
+	      if(dojo.indexOf(ids,id)){
 	        w.destroyRecursive();
-	   }
-	});
-}
+	      }
+	    });
+    }
 
         var startExtent = new esri.geometry.Extent(-83.41, 31.98, -78.47, 35.28, new esri.SpatialReference({wkid:4326}));
         //create map
-        var map = new esri.Map("map",{extent:esri.geometry.geographicToWebMercator(startExtent),slider:false});
+        var map = new esri.Map("map",{extent:esri.geometry.geographicToWebMercator(startExtent)});
 
         //create and add new layer
         var layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer");
@@ -161,24 +161,6 @@ function removeDijit(elem){
               map.resize();
               map.reposition();
             }, 500);
-          });
-          var slider = new Ext.slider.SingleSlider({
-            renderTo: "extSlider",
-            height: 180,
-            increment: 1,
-            minValue: 0,
-            maxValue: layer.tileInfo.lods.length - 1,
-            value: map.getLevel(),
-            vertical: true,
-            plugins: new Ext.slider.Tip()
-          });
-        
-          slider.on("changecomplete", function(slider, newValue) {
-            map.setLevel(newValue);
-          });
-        
-          dojo.connect(map, "onZoomEnd", function() {
-            slider.setValue(map.getLevel());
           });
         });
 

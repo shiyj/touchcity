@@ -13,10 +13,10 @@ Ext.define('MyDesktop.AccordionWindow', {
 
     init : function(){
         this.launcher = {
-            text: 'Accordion Window',
+            text: '帐号管理',
             iconCls:'accordion',
             handler : function(){
-				//this.createWindow
+				    //this.createWindow
 			},
             scope: this
         };
@@ -26,7 +26,7 @@ Ext.define('MyDesktop.AccordionWindow', {
 		  var store= Ext.create('Ext.data.TreeStore', {
 		  	proxy: {
 				type: 'ajax',
-				url : '/allfriend',
+				url : '/getFriends',
 				reader: 'json'
 		  	},
             root: {
@@ -62,17 +62,18 @@ Ext.define('MyDesktop.AccordionWindow', {
 			url: '/auth',
 			method: 'GET',
 			success: function(response){
-				var text=response.responseText;	
-if(text){
-loginForm();
-}
+				var text=response.responseText;
+        if(text=='unauthed'){
+          loginForm();
+          return;
+        }
 				var desktop = myDesktopApp.getDesktop();
 				var win = desktop.getWindow('acc-win');
 
 				if (!win) {
 				    win = desktop.createWindow({
 				        id: 'acc-win',
-				        title: 'Accordion Window',
+				        title: '帐号管理',
 				        width: 250,
 				        height: 400,
 				        iconCls: 'accordion',
@@ -83,17 +84,27 @@ loginForm();
 				            xtype: 'toolbar',
 				            ui: 'plain',
 				            items: [{
-				                tooltip:{title:'Rich Tooltips', text:'Let your users know what they can do!'},
-				                iconCls:'connect'
+				                tooltip:'退出登录',
+				                iconCls:'connect',
+                        handler: function(){
+                          var a = Ext.Ajax.request({
+                            url: '/logout',
+                            method: 'GET',
+                            async:false,
+                          });
+                          var b = a.responseText;
+                          alert(b);
+                          win.destroy();
+                        } 
 				            },
 				            '-',
 				            {
-				                tooltip:'Add a new user',
+				                tooltip:'添加朋友',
 				                iconCls:'user-add'
 				            },
 				            ' ',
 				            {
-				                tooltip:'Remove the selected user',
+				                tooltip:'删除朋友',
 				                iconCls:'user-delete'
 				            }]
 				        },
@@ -104,12 +115,12 @@ loginForm();
 				        items: [
 				            myDesktopApp.modules[3].createTree(),
 				            {
-				                title: 'Settings',
+				                title: '搜索',
 				                html:'<p>Something useful would be in here.</p>',
 				                autoScroll:true
 				            },
 				            {
-				                title: 'Even More Stuff',
+				                title: '微博',
 				                html : '<p>Something useful would be in here.</p>'
 				            },
 				            {

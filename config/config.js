@@ -25,7 +25,7 @@ module.exports = function(app){
       .use(express.cookieParser())
       .use(express.bodyParser())
       .use(express.errorHandler({dumpException: true, showStack: true}))
-      .use(express.session({ secret: 'faFka1@$aGsja'}))
+      .use(express.session({ secret: 'shiyj@#zzu$&gis'}))
   });
 
   //  Add template engine
@@ -38,11 +38,12 @@ module.exports = function(app){
   });
 
   //  Save reference to database connection
-  
+  // 'users': db.model('User')是在db中引用时将User映射为users。 
   app.configure(function () {
     app.set('db', { 
         'main': db
       , 'users': db.model('User')
+      , 'weibo': db.model('Weibo')
     })
     app.set('version', '0.1.4');
 	app.set('host','localhost')

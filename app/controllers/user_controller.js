@@ -29,18 +29,34 @@ exports.create = function(req, res, db, next){
   var user = new User({username:req.param('username'),password:password,email:req.param('email')});
   
   user.save(function(err){
-    if (err) return next(err)
-      res.send({success:true});	
+    if (err){
+      console.log('err '+err);
+      //用户名、email重复时测试errors类型
+      for(var i in err)
+        console.log('err one by one '+ i+ ' '+ err[i] );
+      console.log('err errors '+err.errors);
+      console.log('err type '+err.type);
+      console.log('err message '+err.message);
+      console.log('err username '+ err.username);
+      console.log('err name '+ err.name);
+      console.log('err message username '+err.message.username);
+      console.log(err.errors);
+      res.send({success:false});
+      return;
+      //return next(err)
+    }
+    res.send({success:true});	
   });
 }
-
-exports.getfriend = function(req,res,db,next){
-  db.users.getUsers(function(err,users){
+exports.addFriend = function(req,res,db,next){
+  db.users.addFriend(req.session.auth_id,req.param('friendid'));
+}
+exports.getFriends = function(req,res,db,next){
+  db.users.getFriends(req.session.auth_id,function(err,friends){
       if(!err){
         var jsonstr=new Array();
-        for(var u in users){
-          jsonstr.push({text:users[u].doc.username,leaf:true})
-        }
+        for(var f=0;f< friends.friends.length;f++)
+        jsonstr.push({text:friends.friends[f].username,leaf:true})
         res.json({text:".",children:jsonstr});
       }      
   });
@@ -51,16 +67,31 @@ exports.auth = function(req,res,next){
 }
 exports.login = function(req,res,db,next){
   var username=req.param('username');
-  var password=req.param('password');
+  var password= node_md5.str_md5(req.param('password'));
   db.users.checkLogin(username,password,function(err,docs){
     if(docs.length){
       req.session.auth = true;
+      req.session.auth_id=docs[0]._doc._id
       res.send({success:true});
     } else {
       res.send({success:false});
     }
   })
 }
-exports.logout = function(req,res,db,next){
-  
+exports.logout = function(req,res,next){
+  req.session.destroy();
+  res.send('您已经退出……');
+}
+exports.checkUnique = function(req,res,db,next){
+  var params = req.urlpa = url.parse(req.url, true).query;
+  var coname=params.mykey;
+  var covalue=params.myvalue;
+  console.log('checkUnique of '+coname+ ' ==' +covalue);
+  db.users.checkUnique(coname,covalue,function(err,doc){
+    if(err) return res.send('服务器内部错误，请稍后注册……');
+    if(doc.length!=0)
+      res.send('已经存在.');
+    else
+    res.send(true);
+  });
 }

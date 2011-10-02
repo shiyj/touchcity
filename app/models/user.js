@@ -11,15 +11,25 @@ var User = module.exports = new Schema({
   , isEnterperise : { type:Boolean, default: false, required:true }
 })
 
+
 User.statics.getUsers = function(callback){
   return this.find().sort('_id','descending').limit(15).find({}, callback)
 }
 //取得指定id用户的所有朋友信息。
 User.statics.getFriends = function(userid,callback){
-  console.log('in model');
   return this.findById(userid)
              .populate('friends',['username'])
              .run(callback)
+}
+User.statics.addFriend = function(userid,friendid,callback){
+  this.findById(userid,function(err,user){
+    if(!err){
+      user.friends.push(friendid);
+      user.save(function(err){
+        console.log(err);
+      })
+    }
+  })
 }
 //检测是否已经在别处登录或者用户名密码是否正确。
 User.statics.checkLogin = function(username,password,callback){

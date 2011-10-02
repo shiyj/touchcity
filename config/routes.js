@@ -3,7 +3,7 @@
  */
 
 const user   = require('../app/controllers/user_controller');
-var fs=require('fs');
+const weibo  = require('../app/controllers/weibo_controller');
 /**
  * Exports
  */
@@ -14,26 +14,25 @@ module.exports = function(app){
   
   var db = app.set('db');
 
-  //  Load Root
   
   app.get('/', function (req, res,next){
-	user.index(req, res, db, next) 
-  });
-
-  app.get('/desktop',function(req,res,next){
-	//res.contentType('application/json');
+	//user.index(req, res, db, next) 
 	res.render('desktop',{layout: false});
   });
-  
+  app.get('/user_acc',function(req,res,next){
+	res.render('user_acc');
+  });
+ 
+  //用户操作：增删改更新及验证
   app.get('/posts', function (req, res, next){ user.index(req, res, db, next) }); 
   app.post('/create', function (req, res, next){ user.create(req, res, db, next) }); 
-  app.get('/allfriend',function(req,res,next){
-      user.getfriend(req,res,db,next);
-  });
-  app.get('/auth',function(req,res){
-    res.json({success:true});
-  });
-  app.get('/login',function(req,res){
-    
-  });
+  app.get('/addFriend',function(req,res,next){user.addFriend(req,res,db,next) });
+  app.get('/getFriends',function(req,res,next){ user.getFriends(req,res,db,next) });
+  app.get('/auth',function(req,res,next){user.auth(req,res,next) });
+  app.post('/login',function(req,res,next){user.login(req,res,db,next) });
+  app.get('/checkUnique',function(req,res,next){user.checkUnique(req,res,db,next) });
+  app.get('/logout',function(req,res,next){ user.logout(req,res,next) });
+  //微博操作：
+  app.post('/create_w',function(req,res,next){ weibo.create(req,res,db,next)});
+  app.get('/getMyWeibo',function(req,res,next){ weibo.getMyWeibo(req,res,db,next)});
 }

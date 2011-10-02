@@ -2,7 +2,7 @@
 Ext.define('MyDesktop.MapTest',{
   extend: 'Ext.ux.desktop.Module',
 
-  requires: ['Ext.panel.Panel'],
+  requires: ['Ext.panel.Panel','Ext.chart.*','Ext.layout.container.Fit'],
   id: 'maptest-win',
   init: function(){
     this.launcher = {
@@ -94,7 +94,6 @@ Ext.define('MyDesktop.MapTest',{
     return win;
   },
   initMap: function() {
-             debugger
     removeDijit(dojo.byId("map"));
 function removeDijit(elem){
 	var ids = ["map"];
@@ -106,8 +105,20 @@ function removeDijit(elem){
 }
 
     var map = new esri.Map("map");
-    var layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://localhost:8399/arcgis/rest/services/test2/MapServer");
+    //var layer = new esri.layers.ArcGISDynamicMapServiceLayer("http://localhost:8399/arcgis/rest/services/test2/MapServer");
+    var layer1 = new esri.layers.ArcGISDynamicMapServiceLayer("http://10.100.132.151:8399/arcgis/rest/services/zzmap/MapServer");
+    map.addLayer(layer1);
+
+    var infoTemp= new esri.InfoTemplate('aaaa','<b>aaa</b>');
+    var layer = new esri.layers.FeatureLayer("http://10.100.132.151:8399/arcgis/rest/services/zzmap/MapServer/16",{
+      mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+      outFields: ["*"],
+      infoTemplate:infoTemp
+        });
+    //var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([255,255,255,0.35]), 1),new dojo.Color([250,0,0,0.35]));
+    //layer.setRenderer(new esri.renderer.SimpleRenderer(symbol));
     map.addLayer(layer);
+    map.infoWindow.resize(150,105);
     var resizeTimer;
     dojo.connect(map, "onLoad", function(){
           dojo.connect(dijit.byId('map'), 'resize', function() {
@@ -118,5 +129,13 @@ function removeDijit(elem){
             }, 500);
           });
      });
+    
+    var highlightSymbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([255,0,0]), 3), new dojo.Color([125,125,125,0.35]));
+    dojo.connect(layer,"onMouseOver",function(evt) {
+      evt.graphic.setInfoTemplate(infoTemp);    
+    })
+    dojo.connect(map,"onMouseWheel",function(evt) {
+    //  evt.graphic.setInfoTemplate(infoTemp);    
+    })
   },
 })

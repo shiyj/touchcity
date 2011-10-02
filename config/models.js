@@ -12,8 +12,7 @@ require('express-mongoose');
  
 module.exports = function(){
   
-  //  Load Blog Post model
-  
+  //注册model到mongoose 
   mongoose.model('User', require('../app/models/user'));
-
+  mongoose.model('Weibo',require('../app/models/weibo'));
 }
