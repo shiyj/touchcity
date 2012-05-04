@@ -6,8 +6,6 @@
     <link rel="stylesheet"  href="/stylesheets/resources/css/ext-all.css" />
     <link rel="stylesheet"  href="/stylesheets/css/desktop.css" />
     <link res="stylesheet" href="/stylesheets/style.css" />    
-    <link rel="stylesheet" type="text/css" href="http://localhost:3000/arcgis/2.4/arcgis/js/dojo/dijit/themes/claro/claro.css">
-    <script type="text/javascript" src="/arcgis/2.4/arcgis/js/my_arcgis_api.js"></script>
 
 
   <script type="text/javascript" src="ext-all-dev.js"></script>
@@ -33,17 +31,11 @@
 	<script type="text/javascript" src="js/Wallpaper.js"></script>
 	<script type="text/javascript" src="WallpaperModel.js"></script>
 	<script type="text/javascript" src="example-data.js"></script>
-	<script type="text/javascript" src="Map.js"></script>
-	<script type="text/javascript" src="MapTest.js"></script>
     <script type="text/javascript" src="App-utf.js"></script>
 
 
     <script type="text/javascript">
         
-    dojo.require("esri.map");
-    dojo.require("esri.layers.FeatureLayer");
-//    dojo.require("dijit.TooltipDialog");
-//    dojo.require("dojo.number");     
         Ext.require('MyDesktop.App');
 	    	Ext.Loader.setPath({
             'Ext.ux.desktop': 'js',
@@ -51,7 +43,6 @@
         });
         var myDesktopApp;
         Ext.onReady(function () {
-			
             myDesktopApp = new MyDesktop.App();
         });
     </script>

@@ -14,8 +14,8 @@ Ext.define('MyDesktop.App', {
 //        'MyDesktop.Notepad',
         'MyDesktop.BogusMenuModule',
         'MyDesktop.BogusModule',
-        'MyDesktop.Map',
-        'MyDesktop.MapTest',
+        //'MyDesktop.Map',
+        //'MyDesktop.MapTest',
 //        'MyDesktop.Blockalanche',
         'MyDesktop.Settings'
     ],
@@ -30,19 +30,17 @@ Ext.define('MyDesktop.App', {
 
     getModules : function(){
 		var myaccwin=new MyDesktop.AccordionWindow();
-        return [
-            new MyDesktop.VideoWindow(),
-            //new MyDesktop.Blockalanche(),
-            //new MyDesktop.SystemStatus(),
-            new MyDesktop.GridWindow(),
-            new MyDesktop.TabWindow(),
-            myaccwin,
-//            new MyDesktop.Notepad(),
-            new MyDesktop.BogusMenuModule(),
-            new MyDesktop.BogusModule(),
-            new MyDesktop.Map(),
-            new MyDesktop.MapTest()
-        ];
+    return [
+      new MyDesktop.VideoWindow(),
+      //new MyDesktop.Blockalanche(),
+      //new MyDesktop.SystemStatus(),
+      new MyDesktop.GridWindow(),
+      new MyDesktop.TabWindow(),
+      myaccwin,
+//    new MyDesktop.Notepad(),
+      new MyDesktop.BogusMenuModule(),
+      new MyDesktop.BogusModule(),
+      ];
     },
 
     getDesktopConfig: function () {
@@ -60,8 +58,6 @@ Ext.define('MyDesktop.App', {
                 data: [
                     { name: '数据窗口', iconCls: 'grid-shortcut', module: 'grid-win' },
                     { name: '我的帐号', iconCls: 'accordion-shortcut', module: 'acc-win' },
-					{ name: 'myown', iconCls: 'accordion-shortcut', module: 'map-win'},
-					{ name: '测试', iconCls: 'accordion-shortcut', module: 'maptest-win'}
                     //{ name: 'Notepad', iconCls: 'notepad-shortcut', module: 'notepad' },
                     //{ name: 'System Status', iconCls: 'cpu-shortcut', module: 'systemstatus'}
                 ]
