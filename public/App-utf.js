@@ -14,7 +14,7 @@ Ext.define('MyDesktop.App', {
 //        'MyDesktop.Notepad',
         'MyDesktop.BogusMenuModule',
         'MyDesktop.BogusModule',
-        //'MyDesktop.Map',
+        'MyDesktop.Map',
         //'MyDesktop.MapTest',
 //        'MyDesktop.Blockalanche',
         'MyDesktop.Settings'
@@ -36,6 +36,7 @@ Ext.define('MyDesktop.App', {
       //new MyDesktop.SystemStatus(),
       new MyDesktop.GridWindow(),
       new MyDesktop.TabWindow(),
+      new MyDesktop.Map(),
       myaccwin,
 //    new MyDesktop.Notepad(),
       new MyDesktop.BogusMenuModule(),
@@ -58,6 +59,7 @@ Ext.define('MyDesktop.App', {
                 data: [
                     { name: '数据窗口', iconCls: 'grid-shortcut', module: 'grid-win' },
                     { name: '我的帐号', iconCls: 'accordion-shortcut', module: 'acc-win' },
+                    { name: '我的帐号', iconCls: 'accordion-shortcut', module: 'map-win' }
                     //{ name: 'Notepad', iconCls: 'notepad-shortcut', module: 'notepad' },
                     //{ name: 'System Status', iconCls: 'cpu-shortcut', module: 'systemstatus'}
                 ]
