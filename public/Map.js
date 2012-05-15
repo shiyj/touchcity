@@ -49,6 +49,7 @@ Ext.define('MyDesktop.Map', {
 	createWindow: function() {
 		var desktop = this.app.getDesktop();
 		var win = desktop.getWindow('map-win');
+    var self = this;
 		if (!win) {
 			var menu = Ext.createWidget('menu', {
 				items: [{
@@ -94,52 +95,23 @@ Ext.define('MyDesktop.Map', {
 				constrainHeader: false,
 				layout: 'fit',
 				items: [{
-					html: "<div id='map' style='height:100%;width:100%;'> <div id='extSlider' style='position: absolute; right: 20px; top: 20px; height: 180px; z-index: 100;'></div></div>"
-					//text:'aaa',
-					//id:'map'
-				},
-				{
-
-				}],
-				tbar: ['操作菜单：', ' ', '-', {
-					text: 'Button'
-				},
-				{
-					text: 'Menu Button',
-					id: 'menu-btn',
-					menu: menu
-				},
-				{
-					xtype: 'splitbutton',
-					text: 'Split Button',
-					menu: Ext.createWidget('menu', {
-						items: [{
-							text: 'Item 1'
-						},
-						{
-							text: 'Item 2'
-						}]
-					})
-				},
-				{
-					xtype: 'button',
-					enableToggle: true,
-					pressed: true,
-					text: 'Toggle Button'
+					xtype: 'component',
+					fullscreen: true,
+					layout: 'fit',
+					id: 'map',
+					listeners: {
+						render: function() {
+		          self.initMap();
+            }
+					}
 				}],
 				bbar: [{
 					text: 'Bottom Bar'
 				}],
-				lbar: [{
-					text: 'Left'
-				}],
-				rbar: [{
-					text: 'Right'
-				}]
 			});
 		}
+		//this.initMap();
 		win.show();
-		this.initMap();
 		return win;
 	},
 	initMap: function() {
@@ -166,13 +138,12 @@ Ext.define('MyDesktop.Map', {
 			maxResolution: 1,
 			maxExtent: new OpenLayers.Bounds( - 181.00, - 91.00, 181.00, 91.00),
 			controls: [
-			new OpenLayers.Control.TouchNavigation(), new OpenLayers.Control.ZoomPanel(), this.toolbar],
+			new OpenLayers.Control.PanZoom(), new OpenLayers.Control.EditingToolbar(this.vector)],
 			layers: [this.wms, this.vector, this.positionVector],
 			center: new OpenLayers.LonLat(113, 30),
 			zoom: 6,
 			theme: null
 		});
-		this.toolbar.controls[0].activate();
 	}
 })
 
