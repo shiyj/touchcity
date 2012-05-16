@@ -49,7 +49,7 @@ Ext.define('MyDesktop.Map', {
 	createWindow: function() {
 		var desktop = this.app.getDesktop();
 		var win = desktop.getWindow('map-win');
-    var self = this;
+		var self = this;
 		if (!win) {
 			var menu = Ext.createWidget('menu', {
 				items: [{
@@ -101,8 +101,11 @@ Ext.define('MyDesktop.Map', {
 					id: 'map',
 					listeners: {
 						render: function() {
-		          self.initMap();
-            }
+							self.initMap();
+						},
+						resize: function() {
+							self.map.updateSize();
+						}
 					}
 				}],
 				bbar: [{
