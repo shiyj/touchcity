@@ -29,15 +29,14 @@ Ext.define('MyDesktop.App', {
     },
 
     getModules : function(){
-		var myaccwin=new MyDesktop.AccordionWindow();
     return [
       new MyDesktop.VideoWindow(),
       //new MyDesktop.Blockalanche(),
       //new MyDesktop.SystemStatus(),
       new MyDesktop.GridWindow(),
       new MyDesktop.TabWindow(),
+		  new MyDesktop.AccordionWindow(),
       new MyDesktop.Map(),
-      myaccwin,
 //    new MyDesktop.Notepad(),
       new MyDesktop.BogusMenuModule(),
       new MyDesktop.BogusModule(),
@@ -59,7 +58,7 @@ Ext.define('MyDesktop.App', {
                 data: [
                     { name: '数据窗口', iconCls: 'grid-shortcut', module: 'grid-win' },
                     { name: '我的帐号', iconCls: 'accordion-shortcut', module: 'acc-win' },
-                    { name: '我的帐号', iconCls: 'accordion-shortcut', module: 'map-win' }
+                    { name: '地图浏览', iconCls: 'map-shortcut', module: 'map-win' }
                     //{ name: 'Notepad', iconCls: 'notepad-shortcut', module: 'notepad' },
                     //{ name: 'System Status', iconCls: 'cpu-shortcut', module: 'systemstatus'}
                 ]

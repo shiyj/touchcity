@@ -215,6 +215,9 @@
     background-image: url(../images/im48x48.png);
 }
 
+.map-shortcut {
+    background-image: url(../images/map.png);
+}
 .cpu-shortcut {
     background-image: url(../images/statusLarge.png);
 }
@@ -248,7 +251,10 @@
     background-image: none;
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/notepadLarge.png', sizingMethod='scale');
 }
-
+.x-ie6 .map-shortcut {
+    background-image: none;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/map.png', sizingMethod='scale');
+}
 .video {
     background-image: url(../images/gears.gif);
 }

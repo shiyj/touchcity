@@ -2,7 +2,7 @@
  *  Load external modules / see readme for bundle instructions
  */
  
-//require.paths = require.paths.unshift(__dirname + '/../node_modules');
+require.paths = require.paths.unshift(__dirname + '/../node_modules');
 //require('./lib/exceptions')
 
 //  Load boot file and fire away!
