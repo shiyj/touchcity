@@ -4,6 +4,7 @@
 
 const user   = require('../app/controllers/user_controller');
 const weibo  = require('../app/controllers/weibo_controller');
+const mobile = require('../app/controllers/mobile_controller');
 /**
  * Exports
  */
@@ -32,6 +33,11 @@ module.exports = function(app){
   app.post('/login',function(req,res,next){user.login(req,res,db,next) });
   app.get('/checkUnique',function(req,res,next){user.checkUnique(req,res,db,next) });
   app.get('/logout',function(req,res,next){ user.logout(req,res,next) });
+  //移动客户端操作
+  app.post('/m_sendGPS',function(req,res,next){});
+  app.post('/m_join',function(req,res,next){ mobile.join(req,res,next) });
+  app.post('/m_apart',function(req,res,next){});
+  
   //微博操作：
   app.post('/create_w',function(req,res,next){ weibo.create(req,res,db,next)});
   app.get('/getMyWeibo',function(req,res,next){ weibo.getMyWeibo(req,res,db,next)});
