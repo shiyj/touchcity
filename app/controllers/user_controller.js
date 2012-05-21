@@ -1,5 +1,8 @@
+const mobile = require('./mobile_controller');
+
 var url = require('url');
 var node_md5= require('../../lib/md5');
+
 var authCheck= function(req,res,next){
   var params = req.urlpa = url.parse(req.url, true);
   if ( params.pathname == "/logout" ) {
@@ -94,4 +97,12 @@ exports.checkUnique = function(req,res,db,next){
     else
     res.send(true);
   });
+}
+exports.getPosition = function(req,res,next){
+  console.log("user controller for get Position");
+  if (req.session && req.session.auth == true) {
+    mobile.getPosition(req,res,next) 
+  }
+  else
+    res.send({error: 'unlogin'});
 }

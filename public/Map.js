@@ -102,6 +102,7 @@ Ext.define('MyDesktop.Map', {
 					listeners: {
 						render: function() {
 							self.initMap();
+              self.getMobilePosition();
 						},
 						resize: function() {
 							self.map.updateSize();
@@ -147,6 +148,23 @@ Ext.define('MyDesktop.Map', {
 			zoom: 6,
 			theme: null
 		});
+	},
+	getMobilePosition: function() {
+		var me = this;
+		Ext.Ajax.request({
+			url: '/getMobilePosition',
+			method: 'GET',
+			success: function(response) {
+				var data = response.succ;
+				if (data) {
+          for(var i in data){
+		        if (!data.hasOwnProperty(i)) continue;
+            var lat = i.lat;
+          }
+        }
+				setTimeout(me.getMobilePosition(), 5000);
+			}
+		})
 	}
 })
 
