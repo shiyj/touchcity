@@ -11,7 +11,7 @@ var channel = new function() {
     var all_sessions=[];
 		for (var i in sessions) {
 			if (!sessions.hasOwnProperty(i)) continue;
-      all_sessions.push({nick:i.nick,lat:i.lat,lon:i.lon});
+      all_sessions.push({nick:sessions[i].nick,lat:sessions[i].lat,lon:sessions[i].lon});
     }
     callback(all_sessions);
   };

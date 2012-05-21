@@ -49,42 +49,8 @@ Ext.define('MyDesktop.Map', {
 	createWindow: function() {
 		var desktop = this.app.getDesktop();
 		var win = desktop.getWindow('map-win');
-		var self = this;
+		var me = this;
 		if (!win) {
-			var menu = Ext.createWidget('menu', {
-				items: [{
-					text: 'Menu item'
-				},
-				{
-					text: 'Check 1',
-					checked: true
-				},
-				{
-					text: 'Check 2',
-					checked: false
-				},
-				'-', {
-					text: 'Option 1',
-					checked: true,
-					group: 'opts'
-				},
-				{
-					text: 'Option 2',
-					checked: false,
-					group: 'opts'
-				},
-				'-', {
-					text: 'Sub-items',
-					menu: Ext.createWidget('menu', {
-						items: [{
-							text: 'Item 1'
-						},
-						{
-							text: 'Item 2'
-						}]
-					})
-				}]
-			});
 			win = desktop.createWindow({
 				id: 'map-win',
 				title: '地图操作',
@@ -101,16 +67,24 @@ Ext.define('MyDesktop.Map', {
 					id: 'map',
 					listeners: {
 						render: function() {
-							self.initMap();
-              self.getMobilePosition();
+							me.initMap();
+							me.getMobilePosition();
 						},
 						resize: function() {
-							self.map.updateSize();
+							me.map.updateSize();
 						}
 					}
 				}],
 				bbar: [{
-					text: 'Bottom Bar'
+					text: '打开监控',
+					handler: function() {
+						me.closedWatch = ! me.closedWatch;
+						if (!me.closedWatch) {
+							this.setText('关闭监控');
+							me.getMobilePosition();
+						}
+						else this.setText('打开监控')
+					}
 				}],
 			});
 		}
@@ -149,20 +123,20 @@ Ext.define('MyDesktop.Map', {
 			theme: null
 		});
 	},
+  closedWatch: true,
 	getMobilePosition: function() {
-		var me = this;
-		Ext.Ajax.request({
+		if (!myDesktopApp.modules[4].closedWatch) Ext.Ajax.request({
 			url: '/getMobilePosition',
 			method: 'GET',
 			success: function(response) {
 				var data = response.succ;
 				if (data) {
-          for(var i in data){
-		        if (!data.hasOwnProperty(i)) continue;
-            var lat = i.lat;
-          }
-        }
-				setTimeout(me.getMobilePosition(), 5000);
+					for (var i in data) {
+						if (!data.hasOwnProperty(i)) continue;
+						var lat = i.lat;
+					}
+				}
+				setTimeout(myDesktopApp.modules[4].getMobilePosition, 3000);
 			}
 		})
 	}

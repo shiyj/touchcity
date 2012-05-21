@@ -35,7 +35,7 @@ module.exports = function(app){
   app.get('/checkUnique',function(req,res,next){user.checkUnique(req,res,db,next) });
   app.get('/logout',function(req,res,next){ user.logout(req,res,next) });
   //map
-  app.get('/getMobilePosition',function(req,res,next){console.log("aaaa");user.getPosition(req,res,next)});
+  app.get('/getMobilePosition',function(req,res,next){user.getPosition(req,res,next)});
   //微博操作：
   app.post('/create_w',function(req,res,next){ weibo.create(req,res,db,next)});
   app.get('/getMyWeibo',function(req,res,next){ weibo.getMyWeibo(req,res,db,next)});

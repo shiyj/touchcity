@@ -99,7 +99,6 @@ exports.checkUnique = function(req,res,db,next){
   });
 }
 exports.getPosition = function(req,res,next){
-  console.log("user controller for get Position");
   if (req.session && req.session.auth == true) {
     mobile.getPosition(req,res,next) 
   }
