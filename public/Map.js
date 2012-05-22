@@ -20,13 +20,21 @@ Ext.define('MyDesktop.Map', {
 	positionVector: new OpenLayers.Layer.Vector('Position Vector Layer', {
 		styleMap: new OpenLayers.StyleMap({
 			'default': {
-				strokeColor: "#FF0000",
+				strokeColor: "#0000FF",
 				strokeOpacity: 1,
 				strokeWidth: 3,
 				fillColor: "#55FF00",
 				fillOpacity: 0.5,
 				pointRadius: 8,
 				pointerEvents: "visiblePainted",
+				label: " ${name} ",
+				fontColor: "red",
+				fontSize: "12px",
+				fontFamily: "Courier New, monospace",
+				fontWeight: "bold",
+				labelAlign: "cm",
+				labelXOffset: "${xOffset}",
+				labelYOffset: "${yOffset}"
 			}
 		})
 	}),
@@ -83,7 +91,10 @@ Ext.define('MyDesktop.Map', {
 							this.setText('关闭监控');
 							me.getMobilePosition();
 						}
-						else this.setText('打开监控')
+						else {
+							myDesktopApp.modules[4].positionVector.removeAllFeatures();
+							this.setText('打开监控')
+						}
 					}
 				}],
 			});
@@ -123,25 +134,31 @@ Ext.define('MyDesktop.Map', {
 			theme: null
 		});
 	},
-  closedWatch: true,
+	closedWatch: true,
 	getMobilePosition: function() {
 		if (!myDesktopApp.modules[4].closedWatch) Ext.Ajax.request({
 			url: '/getMobilePosition',
 			method: 'GET',
 			success: function(response) {
 				var data = response.responseText;
-        data = eval("(" + data + ")");
-        if(data.error){
-          alert(data.error);
-          return;
-        }
+				data = eval("(" + data + ")");
+				if (data.error) {
+					alert(data.error);
+					return;
+				}
 				if (data.succ && data.succ.length > 0) {
-          var user_arr = data.succ;
-          myDesktopApp.modules[4].positionVector.removeAllFeatures();
-					for (var i = 0;i< user_arr.length;i++) {
-						var position = new OpenLayers.Geometry.Point(user_arr[i].lat,user_arr[i].lon);
-            myDesktopApp.modules[4].drawPoint.drawFeature(position);
+					var user_arr = data.succ;
+					var features = [];
+					for (var i = 0; i < user_arr.length; i++) {
+						var position = new OpenLayers.Geometry.Point(user_arr[i].lat, user_arr[i].lon);
+						var f_position = new OpenLayers.Feature.Vector(position);
+						f_position.attributes = {
+							name: user_arr[i].nick
+						}
+						features.push(f_position);
 					}
+					myDesktopApp.modules[4].positionVector.removeAllFeatures();
+					myDesktopApp.modules[4].positionVector.addFeatures(features);
 				}
 				setTimeout(myDesktopApp.modules[4].getMobilePosition, 3000);
 			}
