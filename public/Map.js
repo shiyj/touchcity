@@ -129,11 +129,18 @@ Ext.define('MyDesktop.Map', {
 			url: '/getMobilePosition',
 			method: 'GET',
 			success: function(response) {
-				var data = response.succ;
-				if (data) {
-					for (var i in data) {
-						if (!data.hasOwnProperty(i)) continue;
-						var lat = i.lat;
+				var data = response.responseText;
+        data = eval("(" + data + ")");
+        if(data.error){
+          alert(data.error);
+          return;
+        }
+				if (data.succ && data.succ.length > 0) {
+          var user_arr = data.succ;
+					for (var i = 0;i< user_arr.length;i++) {
+						var position = new OpenLayers.Geometry.Point(user_arr[i].lat,user_arr[i].lon);
+            myDesktopApp.modules[4].positionVector.removeAllFeatures();
+            myDesktopApp.modules[4].drawPoint.drawFeature(position);
 					}
 				}
 				setTimeout(myDesktopApp.modules[4].getMobilePosition, 3000);
