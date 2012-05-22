@@ -137,9 +137,9 @@ Ext.define('MyDesktop.Map', {
         }
 				if (data.succ && data.succ.length > 0) {
           var user_arr = data.succ;
+          myDesktopApp.modules[4].positionVector.removeAllFeatures();
 					for (var i = 0;i< user_arr.length;i++) {
 						var position = new OpenLayers.Geometry.Point(user_arr[i].lat,user_arr[i].lon);
-            myDesktopApp.modules[4].positionVector.removeAllFeatures();
             myDesktopApp.modules[4].drawPoint.drawFeature(position);
 					}
 				}
