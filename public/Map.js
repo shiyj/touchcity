@@ -146,6 +146,7 @@ Ext.define('MyDesktop.Map', {
 					alert(data.error);
 					return;
 				}
+				myDesktopApp.modules[4].positionVector.removeAllFeatures();
 				if (data.succ && data.succ.length > 0) {
 					var user_arr = data.succ;
 					var features = [];
@@ -157,7 +158,6 @@ Ext.define('MyDesktop.Map', {
 						}
 						features.push(f_position);
 					}
-					myDesktopApp.modules[4].positionVector.removeAllFeatures();
 					myDesktopApp.modules[4].positionVector.addFeatures(features);
 				}
 				setTimeout(myDesktopApp.modules[4].getMobilePosition, 3000);
