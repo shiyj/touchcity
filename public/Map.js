@@ -151,7 +151,7 @@ Ext.define('MyDesktop.Map', {
 					var user_arr = data.succ;
 					var features = [];
 					for (var i = 0; i < user_arr.length; i++) {
-						var position = new OpenLayers.Geometry.Point(user_arr[i].lat, user_arr[i].lon);
+						var position = new OpenLayers.Geometry.Point(user_arr[i].lon, user_arr[i].lat);
 						var f_position = new OpenLayers.Feature.Vector(position);
 						f_position.attributes = {
 							name: user_arr[i].nick
